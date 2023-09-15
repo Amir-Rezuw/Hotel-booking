@@ -1,10 +1,11 @@
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useRef, useState } from "react";
 import { HiCalendar, HiSearch } from "react-icons/hi";
 import { MdLocationOn } from "react-icons/md";
 import { toggleState } from "../../Service/Functions";
+import useOutsideClick from "../../hooks/useOutsideClick";
 const Header = () => {
   const [destination, setDestination] = useState("");
-  const [isGuestOptions, setIsGuestOptions] = useState(false);
+  const [isGuestOptionsOpen, setIsGuestOptionsOpen] = useState(false);
   const [roomOptionsCount, setRoomOptionsCount] = useState<{
     [key: string]: number;
   }>({
@@ -51,35 +52,18 @@ const Header = () => {
           <span className="separator"></span>
         </div>
         <div className="headerSearchItem">
-          <button onClick={() => toggleState(setIsGuestOptions)}>
+          <button onClick={() => toggleState(setIsGuestOptionsOpen)}>
             <div id="optionDropDown">
               {roomOptionsCount.adult} adult &bull; {roomOptionsCount.children}{" "}
               children &bull; {roomOptionsCount.room} room
             </div>
           </button>
-          <div
-            className="guestOptions"
-            hidden={!isGuestOptions}
-          >
-            <OptionItem
-              onChangeValue={onOptionChange}
-              currentCount={roomOptionsCount.adult}
-              title="Adult"
-              minimumCount={1}
-            />
-            <OptionItem
-              onChangeValue={onOptionChange}
-              currentCount={roomOptionsCount.children}
-              title="Children"
-              minimumCount={0}
-            />
-            <OptionItem
-              onChangeValue={onOptionChange}
-              currentCount={roomOptionsCount.room}
-              title="Room"
-              minimumCount={1}
-            />
-          </div>
+          <GuestOptions
+            isGuestOptionsOpen={isGuestOptionsOpen}
+            onOptionChange={onOptionChange}
+            roomOptionsCount={roomOptionsCount}
+            closerFunction={() => setIsGuestOptionsOpen(false)}
+          />
           <span className="separator" />
         </div>
         <div className="headerSearchItem">
@@ -93,6 +77,48 @@ const Header = () => {
 };
 
 export default Header;
+
+const GuestOptions = ({
+  isGuestOptionsOpen,
+  onOptionChange,
+  roomOptionsCount,
+  closerFunction,
+}: {
+  isGuestOptionsOpen: boolean;
+  onOptionChange: (e: MouseEvent) => void;
+  closerFunction: () => void;
+  roomOptionsCount: { [key: string]: number };
+}) => {
+  const optionRef = useRef(null);
+  useOutsideClick(optionRef, closerFunction, "optionDropDown");
+  return (
+    <div
+      ref={optionRef}
+      className="guestOptions"
+      hidden={!isGuestOptionsOpen}
+    >
+      <OptionItem
+        onChangeValue={onOptionChange}
+        currentCount={roomOptionsCount.adult}
+        title="Adult"
+        minimumCount={1}
+      />
+      <OptionItem
+        onChangeValue={onOptionChange}
+        currentCount={roomOptionsCount.children}
+        title="Children"
+        minimumCount={0}
+      />
+      <OptionItem
+        onChangeValue={onOptionChange}
+        currentCount={roomOptionsCount.room}
+        title="Room"
+        minimumCount={1}
+      />
+    </div>
+  );
+};
+
 const OptionItem = ({
   title,
   minimumCount,
