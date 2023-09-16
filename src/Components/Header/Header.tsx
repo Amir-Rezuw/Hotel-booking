@@ -1,8 +1,14 @@
+import { format } from "date-fns";
 import { MouseEvent, useRef, useState } from "react";
+import { DateRange, Range, RangeKeyDict } from "react-date-range";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 import { HiCalendar, HiSearch } from "react-icons/hi";
 import { MdLocationOn } from "react-icons/md";
+import { Keys } from "../../Enums/Keys";
 import { toggleState } from "../../Service/Functions";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import IsVisible from "../Shared/IsVisible";
 const Header = () => {
   const [destination, setDestination] = useState("");
   const [isGuestOptionsOpen, setIsGuestOptionsOpen] = useState(false);
@@ -13,6 +19,14 @@ const Header = () => {
     children: 0,
     room: 1,
   });
+  const [date, setDate] = useState<Range[]>([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: Keys.TravelDateRange,
+    },
+  ]);
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const onOptionChange = (e: MouseEvent) => {
     const name = (e.target as HTMLButtonElement).name.toLocaleLowerCase();
     const operation = (e.target as HTMLButtonElement).innerText;
@@ -26,6 +40,14 @@ const Header = () => {
         : { ...perviousValues, [name]: perviousValues[name] - 1 };
     });
   };
+  const datePickerRef = useRef(null);
+  useOutsideClick(
+    datePickerRef,
+    () => {
+      setIsDatePickerOpen(false);
+    },
+    "datePickerParent"
+  );
   return (
     <div className="header">
       <div className="headerSearch">
@@ -45,10 +67,33 @@ const Header = () => {
           <span className="separator"></span>
         </div>
 
-        <div className="headerSearchItem">
+        <div
+          className="headerSearchItem"
+          ref={datePickerRef}
+          id="datePickerParent"
+        >
           <HiCalendar className="headerIcon dateIcon" />
+          <button onClick={() => toggleState(setIsDatePickerOpen)}>
+            <div className="dateDropDown">{`${format(
+              date[0].startDate ?? new Date(),
+              "MM/dd/yyy"
+            )} to ${format(
+              date[0].startDate ?? new Date(),
+              "MM/dd/yyy"
+            )}`}</div>
+          </button>
 
-          <div className="dateDropDown">2023/06/23</div>
+          <IsVisible isVisible={isDatePickerOpen}>
+            <DateRange
+              onChange={(item: RangeKeyDict) => {
+                setDate([item[Keys.TravelDateRange]]);
+              }}
+              ranges={date}
+              className="date"
+              minDate={new Date()}
+              moveRangeOnFirstSelection
+            />
+          </IsVisible>
           <span className="separator"></span>
         </div>
         <div className="headerSearchItem">
