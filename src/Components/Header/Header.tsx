@@ -5,10 +5,12 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { HiCalendar, HiSearch } from "react-icons/hi";
 import { MdLocationOn } from "react-icons/md";
-import { toggleState } from "../../Service/Functions";
+import { createSearchParams } from "react-router-dom";
+import { pushUser, toggleState } from "../../Service/Functions";
 import { Keys } from "../../env/Enums/Keys";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import IsVisible from "../Shared/IsVisible";
+import GuestOptions from "./GuestOptions";
 const Header = () => {
   const [destination, setDestination] = useState("");
   const [isGuestOptionsOpen, setIsGuestOptionsOpen] = useState(false);
@@ -27,6 +29,7 @@ const Header = () => {
     },
   ]);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+
   const onOptionChange = (e: MouseEvent) => {
     const name = (e.target as HTMLButtonElement).name.toLocaleLowerCase();
     const operation = (e.target as HTMLButtonElement).innerText;
@@ -48,6 +51,16 @@ const Header = () => {
     },
     "datePickerParent"
   );
+
+  const onSearch = () => {
+    const jsonParams = createSearchParams({
+      date: JSON.stringify(date),
+      options: JSON.stringify(roomOptionsCount),
+      destination,
+    });
+
+    pushUser({ pathname: "/hotels", search: jsonParams.toString() });
+  };
   return (
     <div className="header">
       <div className="headerSearch">
@@ -112,7 +125,10 @@ const Header = () => {
           <span className="separator" />
         </div>
         <div className="headerSearchItem">
-          <button className="headerSearchBtn">
+          <button
+            className="headerSearchBtn"
+            onClick={onSearch}
+          >
             <HiSearch className="headerIcon" />
           </button>
         </div>
@@ -120,82 +136,4 @@ const Header = () => {
     </div>
   );
 };
-
 export default Header;
-
-const GuestOptions = ({
-  isGuestOptionsOpen,
-  onOptionChange,
-  roomOptionsCount,
-  closerFunction,
-}: {
-  isGuestOptionsOpen: boolean;
-  onOptionChange: (e: MouseEvent) => void;
-  closerFunction: () => void;
-  roomOptionsCount: { [key: string]: number };
-}) => {
-  const optionRef = useRef(null);
-  useOutsideClick(optionRef, closerFunction, "optionDropDown");
-  return (
-    <div
-      ref={optionRef}
-      className="guestOptions"
-      hidden={!isGuestOptionsOpen}
-    >
-      <OptionItem
-        onChangeValue={onOptionChange}
-        currentCount={roomOptionsCount.adult}
-        title="Adult"
-        minimumCount={1}
-      />
-      <OptionItem
-        onChangeValue={onOptionChange}
-        currentCount={roomOptionsCount.children}
-        title="Children"
-        minimumCount={0}
-      />
-      <OptionItem
-        onChangeValue={onOptionChange}
-        currentCount={roomOptionsCount.room}
-        title="Room"
-        minimumCount={1}
-      />
-    </div>
-  );
-};
-
-const OptionItem = ({
-  title,
-  minimumCount,
-  currentCount,
-  onChangeValue,
-}: {
-  title: string;
-  minimumCount: number;
-  currentCount: number;
-  onChangeValue: (event: MouseEvent<HTMLButtonElement>) => void;
-}) => {
-  return (
-    <div className="guestOptionItem">
-      <span className="optionText">{title}</span>
-      <div className="optionCounter">
-        <button
-          className="optionCounterBtn"
-          disabled={currentCount === minimumCount}
-          name={title}
-          onClick={onChangeValue}
-        >
-          -
-        </button>
-        <span className="optionCounterNumber">{currentCount}</span>
-        <button
-          name={title}
-          onClick={onChangeValue}
-          className="optionCounterBtn"
-        >
-          +
-        </button>
-      </div>
-    </div>
-  );
-};
