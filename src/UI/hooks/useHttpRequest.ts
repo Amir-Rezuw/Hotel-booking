@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { IHotelsData } from "../Types/IHotelsData";
+import { IHotelsData } from "../../Types/IHotelsData";
 
 export default function useHttpRequest(url: string, query: string = "") {
   const [data, setData] = useState<IHotelsData[]>([]);

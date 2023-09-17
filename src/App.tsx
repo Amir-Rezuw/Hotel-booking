@@ -1,7 +1,7 @@
 import { Toaster } from "react-hot-toast";
 import "./App.css";
-import Header from "./Components/Header/Header";
-import LocationList from "./Components/LocationList/LocationList";
+import Header from "./UI/Components/Header/Header";
+import LocationList from "./UI/Components/LocationList/LocationList";
 
 const App = () => {
   return (

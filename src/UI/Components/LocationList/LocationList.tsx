@@ -1,5 +1,5 @@
-import { Api } from "../../env/Api";
-import { env } from "../../env/env";
+import { Api } from "../../../env/Api";
+import { env } from "../../../env/env";
 import useHttpRequest from "../../hooks/useHttpRequest";
 
 interface IProps {}
