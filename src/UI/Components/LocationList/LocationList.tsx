@@ -1,3 +1,4 @@
+import { IHotelsData } from "../../../Types/IHotelsData";
 import { Api } from "../../../env/Api";
 import { env } from "../../../env/env";
 import useHttpRequest from "../../hooks/useHttpRequest";
@@ -5,7 +6,9 @@ import useHttpRequest from "../../hooks/useHttpRequest";
 interface IProps {}
 
 const LocationList = ({}: IProps) => {
-  const { data, isLoading } = useHttpRequest(`${env.baseUtl}${Api.hotels}`);
+  const { data, isLoading } = useHttpRequest<IHotelsData>(
+    `${env.baseUtl}${Api.hotels}`
+  );
   if (isLoading) return <p>Loading</p>;
 
   return (

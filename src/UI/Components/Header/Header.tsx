@@ -3,16 +3,24 @@ import { MouseEvent, useRef, useState } from "react";
 import { DateRange, Range, RangeKeyDict } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+import toast from "react-hot-toast";
 import { HiCalendar, HiSearch } from "react-icons/hi";
 import { MdLocationOn } from "react-icons/md";
-import { createSearchParams } from "react-router-dom";
-import { pushUser, toggleState } from "../../../Service/Functions";
+import {
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+import { toggleState } from "../../../Service/Functions";
 import { Keys } from "../../../env/Enums/Keys";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import IsVisible from "../Shared/IsVisible";
 import GuestOptions from "./GuestOptions";
 const Header = () => {
-  const [destination, setDestination] = useState("");
+  const [searchParams] = useSearchParams();
+  const [destination, setDestination] = useState(
+    searchParams.get("destination") || ""
+  );
   const [isGuestOptionsOpen, setIsGuestOptionsOpen] = useState(false);
   const [roomOptionsCount, setRoomOptionsCount] = useState<{
     [key: string]: number;
@@ -51,15 +59,19 @@ const Header = () => {
     },
     "datePickerParent"
   );
+  const navigate = useNavigate();
 
   const onSearch = () => {
+    if (!destination) {
+      toast.error("Please enter a destination");
+      return;
+    }
     const jsonParams = createSearchParams({
       date: JSON.stringify(date),
       options: JSON.stringify(roomOptionsCount),
       destination,
     });
-
-    pushUser({ pathname: "/hotels", search: jsonParams.toString() });
+    navigate({ pathname: "/hotels", search: jsonParams.toString() });
   };
   return (
     <div className="header">

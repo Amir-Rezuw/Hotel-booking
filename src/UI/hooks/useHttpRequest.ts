@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { IHotelsData } from "../../Types/IHotelsData";
 
-export default function useHttpRequest(url: string, query: string = "") {
-  const [data, setData] = useState<IHotelsData[]>([]);
+export default function useHttpRequest<T>(url: string, query: string = "") {
+  const [data, setData] = useState<T[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
