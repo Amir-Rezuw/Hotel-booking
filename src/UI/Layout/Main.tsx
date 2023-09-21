@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import Maps from "../Components/Maps/Maps";
 
 const Main = () => {
   return (
@@ -6,7 +7,9 @@ const Main = () => {
       <div className="sidebar">
         <Outlet />
       </div>
-      <div className="mapContainer"></div>
+      {/* <div className="mapContainer"> */}
+      <Maps />
+      {/* </div> */}
     </div>
   );
 };

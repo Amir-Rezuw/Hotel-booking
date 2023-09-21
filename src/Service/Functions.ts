@@ -5,3 +5,6 @@ export const toggleState = (
 ) => {
   setterFunction((perviousValue) => !perviousValue);
 };
+export const downCaster = <T>(value: any): T => {
+  return value as T;
+};

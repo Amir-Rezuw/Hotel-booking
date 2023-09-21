@@ -1,27 +1,17 @@
 import { Fragment } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { IHotelsData } from "../../../Types/IHotelsData";
-import { Api } from "../../../env/Api";
-import { env } from "../../../env/env";
-import useHttpRequest from "../../hooks/useHttpRequest";
+import { Link } from "react-router-dom";
+import { useHotels } from "../../Context/HotelsProvider.ctx";
 import Loader from "../Shared/Loader";
 
 interface IProps {}
 
 const Hotels = ({}: IProps) => {
-  const [searchParams, _setSearchParams] = useSearchParams();
-
-  const roomOptions = JSON.parse(searchParams.get("options") ?? "");
-  const destination = searchParams.get("destination");
-  const { data, isLoading } = useHttpRequest<IHotelsData>(
-    `${env.baseUtl}${Api.hotels}`,
-    `q=${destination || ""}&accommodates_gte=${roomOptions?.room || 1}`
-  );
+  const { hotels, isLoading } = useHotels();
   if (isLoading) return <Loader />;
   return (
     <div className="searchList">
-      <h2>Search Results ({data.length})</h2>
-      {data.map((item) => (
+      <h2>Search Results ({hotels.length})</h2>
+      {hotels.map((item) => (
         <Fragment key={item.id}>
           <Link
             to={`/hotels/${item.id}?lat=${item.latitude}&lng=${item.longitude}`}

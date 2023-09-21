@@ -73,6 +73,7 @@ const Header = () => {
     });
     navigate({ pathname: "/hotels", search: jsonParams.toString() });
   };
+
   return (
     <div className="header">
       <div className="headerSearch">
