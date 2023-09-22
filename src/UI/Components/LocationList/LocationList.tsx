@@ -6,7 +6,7 @@ import useHttpRequest from "../../hooks/useHttpRequest";
 interface IProps {}
 
 const LocationList = ({}: IProps) => {
-  const { data, isLoading } = useHttpRequest<IHotelsData>(
+  const { data, isLoading } = useHttpRequest<IHotelsData[]>(
     `${env.baseUtl}${Api.hotels}`
   );
   if (isLoading) return <p>Loading</p>;
@@ -15,7 +15,7 @@ const LocationList = ({}: IProps) => {
     <div className="nearbyLocations">
       <h2>Nearby Locations</h2>
       <div className="locationList">
-        {data.map((item) => (
+        {data?.map((item) => (
           <div
             className="locationItem"
             key={item.id}

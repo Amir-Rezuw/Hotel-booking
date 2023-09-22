@@ -6,7 +6,7 @@ import Loader from "../Shared/Loader";
 interface IProps {}
 
 const Hotels = ({}: IProps) => {
-  const { hotels, isLoading } = useHotels();
+  const { hotels, isLoading, currentHotel } = useHotels();
   if (isLoading) return <Loader />;
   return (
     <div className="searchList">
@@ -16,7 +16,11 @@ const Hotels = ({}: IProps) => {
           <Link
             to={`/hotels/${item.id}?lat=${item.latitude}&lng=${item.longitude}`}
           >
-            <div className="searchItem">
+            <div
+              className={`searchItem ${
+                item.id === currentHotel?.id && "current-hotel"
+              }`}
+            >
               <img
                 src={`${item.picture_url.url}`}
                 alt={item.name}

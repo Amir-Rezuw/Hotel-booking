@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 import { Routes as RRD_Routes, Route } from "react-router-dom";
+import HotelProfile from "./UI/Components/HotelProfile/HotelProfile";
 import Hotels from "./UI/Components/Hotels/Hotels";
 import LocationList from "./UI/Components/LocationList/LocationList";
-import Maps from "./UI/Components/Maps/Maps";
 import Main from "./UI/Layout/Main";
 
 const Routes = () => {
@@ -23,7 +23,7 @@ const Routes = () => {
           />
           <Route
             path=":id"
-            element={<Maps />}
+            element={<HotelProfile />}
           />
         </Route>
       </RRD_Routes>

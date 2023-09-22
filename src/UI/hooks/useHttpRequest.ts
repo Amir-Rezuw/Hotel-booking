@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
 export default function useHttpRequest<T>(url: string, query: string = "") {
-  const [data, setData] = useState<T[]>([]);
+  const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function useHttpRequest<T>(url: string, query: string = "") {
         if (err instanceof Error) {
           message = err.message;
         }
-        setData([]);
+        setData(null);
         toast.error(message);
       } finally {
         setIsLoading(false);

@@ -260,8 +260,8 @@
 }
 
 .searchItem.current-hotel {
-  border: 3px solid var(--primary-700);
-  border-radius: 1rem;
+  background-color: rgba(217, 217, 217, 0.4);
+  border-radius: 20px;
 }
 
 @media screen and (min-width: 768px) {
