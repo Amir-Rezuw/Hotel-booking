@@ -1,15 +1,23 @@
-import { LatLngTuple } from "leaflet";
+import { LatLngTuple, LeafletMouseEvent } from "leaflet";
 import { useEffect, useState } from "react";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
-import { useSearchParams } from "react-router-dom";
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMap,
+  useMapEvent,
+} from "react-leaflet";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { downCaster } from "../../../Service/Functions";
-import { useHotels } from "../../Context/HotelsProvider.ctx";
+import { IHotelsData } from "../../../Types/IHotelsData";
 import useGetLocation from "../../hooks/useGetLocation";
 
-interface IProps {}
+interface IProps {
+  markedLocations: IHotelsData[];
+}
 
-const Maps = ({}: IProps) => {
-  const { hotels } = useHotels();
+const Maps = ({ markedLocations: hotels }: IProps) => {
   const [mapCenter, setMapCenter] = useState<LatLngTuple>([48.56, 2.35]);
   const [searchParams] = useSearchParams();
   const { isLoading, position, getLocation } = useGetLocation();
@@ -44,6 +52,7 @@ const Maps = ({}: IProps) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
+        <DetectClick />
         <ChangeCenter position={mapCenter} />
         {hotels.map((item) => (
           <Marker
@@ -64,3 +73,11 @@ function ChangeCenter({ position }: { position: LatLngTuple }) {
   map.setView(position);
   return null;
 }
+
+const DetectClick = () => {
+  const navigate = useNavigate();
+  useMapEvent("click", (event: LeafletMouseEvent) => {
+    navigate(`/bookmarks?lat=${event.latlng.lat}&lng=${event.latlng.lng}`);
+  });
+  return null;
+};
