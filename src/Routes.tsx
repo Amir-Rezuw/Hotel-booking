@@ -1,10 +1,13 @@
 import { Fragment } from "react";
 import { Routes as RRD_Routes, Route } from "react-router-dom";
+
 import Bookmarks from "./UI/Components/Bookmarks";
 import HotelProfile from "./UI/Components/Hotels/HotelProfile";
 import Hotels from "./UI/Components/Hotels/Hotels";
 import LocationList from "./UI/Components/LocationList/LocationList";
+import BookmarksLayout from "./UI/Layout/BookmarksLayout";
 import Main from "./UI/Layout/Main";
+import SingleBookmark from "./UI/Components/SingleBookmark";
 
 const Routes = () => {
   return (
@@ -29,8 +32,21 @@ const Routes = () => {
         </Route>
         <Route
           path="/bookmarks"
-          element={<Bookmarks />}
-        ></Route>
+          element={<BookmarksLayout />}
+        >
+          <Route
+            index
+            element={<Bookmarks />}
+          />
+          <Route
+            path="add"
+            element={<form>add</form>}
+          />
+          <Route
+            path=":id"
+            element={<SingleBookmark />}
+          />
+        </Route>
       </RRD_Routes>
     </Fragment>
   );

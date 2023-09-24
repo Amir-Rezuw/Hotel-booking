@@ -10,11 +10,12 @@ import {
 } from "react-leaflet";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { downCaster } from "../../../Service/Functions";
+import { IBookmarkedHotels } from "../../../Types/IBookmarkedHotels";
 import { IHotelsData } from "../../../Types/IHotelsData";
 import useGetLocation from "../../hooks/useGetLocation";
 
 interface IProps {
-  markedLocations: IHotelsData[];
+  markedLocations: IHotelsData[] | IBookmarkedHotels[];
 }
 
 const Maps = ({ markedLocations: hotels }: IProps) => {
@@ -77,7 +78,7 @@ function ChangeCenter({ position }: { position: LatLngTuple }) {
 const DetectClick = () => {
   const navigate = useNavigate();
   useMapEvent("click", (event: LeafletMouseEvent) => {
-    navigate(`/bookmarks?lat=${event.latlng.lat}&lng=${event.latlng.lng}`);
+    navigate(`/bookmarks/add?lat=${event.latlng.lat}&lng=${event.latlng.lng}`);
   });
   return null;
 };
