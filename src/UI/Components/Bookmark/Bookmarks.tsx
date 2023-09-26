@@ -1,10 +1,19 @@
+import { MouseEvent } from "react";
 import { ReactCountryFlag } from "react-country-flag";
+import { HiOutlineTrash } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { useBookmarks } from "../../Context/BookmarksList.ctx";
 import Loader from "../Shared/Loader";
-
 const Bookmarks = () => {
-  const { isLoading, bookmarkList, currentBookmark } = useBookmarks();
+  const { isLoading, bookmarkList, currentBookmark, deleteBookmark } =
+    useBookmarks();
+  const bookmarkDeleteButton = (
+    e: MouseEvent<HTMLButtonElement>,
+    id: number
+  ) => {
+    e.preventDefault();
+    deleteBookmark(id);
+  };
   if (isLoading) return <Loader />;
   return (
     <div>
@@ -30,6 +39,12 @@ const Bookmarks = () => {
                 &nbsp;
                 <span>{item.country}</span>
               </div>
+              <button
+                onClick={(e) => bookmarkDeleteButton(e, item.id ?? 0)}
+                disabled={isLoading}
+              >
+                <HiOutlineTrash className="trash" />
+              </button>
             </div>
           </Link>
         ))}

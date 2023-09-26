@@ -1325,15 +1325,6 @@
   ],
   "bookmarks": [
     {
-      "cityName": "Abalessa",
-      "country": "Algeria",
-      "countryCode": "DZ",
-      "latitude": "23.18455079512732",
-      "longitude": "3.795523257510883",
-      "host_location": "Abalessa Algeria",
-      "id": 1
-    },
-    {
       "cityName": "Mahidasht",
       "country": "Iran (Islamic Republic of)",
       "countryCode": "IR",
@@ -1352,24 +1343,6 @@
       "id": 5
     },
     {
-      "cityName": "A Dakhla Oasis",
-      "country": "Egypt",
-      "countryCode": "EG",
-      "latitude": "25.02090651422749",
-      "longitude": "29.09059588509316",
-      "host_location": "A Dakhla Oasis Egypt",
-      "id": 7
-    },
-    {
-      "cityName": "Baba Kot",
-      "country": "Pakistan",
-      "countryCode": "PK",
-      "latitude": "28.43528783183169",
-      "longitude": "67.78003711374224",
-      "host_location": "Baba Kot Pakistan",
-      "id": 8
-    },
-    {
       "cityName": "Paris",
       "country": "France",
       "countryCode": "fr",
@@ -1386,33 +1359,6 @@
       "longitude": "22.32421875",
       "host_location": "Municipal Unit of Amfissa Greece",
       "id": 10
-    },
-    {
-      "cityName": "Tehran",
-      "country": "Iran",
-      "countryCode": "ir",
-      "latitude": "35.70212583261713",
-      "longitude": "51.37756347656251",
-      "host_location": "Tehran Iran",
-      "id": 11
-    },
-    {
-      "cityName": "London",
-      "country": "United Kingdom",
-      "countryCode": "gb",
-      "latitude": "51.55786291569685",
-      "longitude": "-0.26367187500000006",
-      "host_location": "London United Kingdom",
-      "id": 12
-    },
-    {
-      "cityName": "Tortona",
-      "country": "Italy",
-      "countryCode": "it",
-      "latitude": "44.89683862442751",
-      "longitude": "8.859088631119969",
-      "host_location": "Tortona Italy",
-      "id": 13
     },
     {
       "cityName": "Plymouth",
