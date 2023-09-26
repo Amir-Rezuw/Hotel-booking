@@ -1,16 +1,15 @@
 import { ReactCountryFlag } from "react-country-flag";
 import { Link } from "react-router-dom";
-import { useBookmarks } from "../Context/BookmarksList.ctx";
-import Loader from "./Shared/Loader";
-interface IProps {}
+import { useBookmarks } from "../../Context/BookmarksList.ctx";
+import Loader from "../Shared/Loader";
 
-const Bookmarks = ({}: IProps) => {
+const Bookmarks = () => {
   const { isLoading, bookmarkList, currentBookmark } = useBookmarks();
   if (isLoading) return <Loader />;
   return (
     <div>
       <div className="bookmarkList">
-        <h2>Bookmark List</h2>
+        <h2>Bookmarked Cities</h2>
         {bookmarkList.map((item) => (
           <Link
             to={`${item.id}?lat=${item.latitude}&lng=${item.longitude}`}
@@ -21,14 +20,16 @@ const Bookmarks = ({}: IProps) => {
                 currentBookmark?.id === item.id && "current-bookmark"
               }`}
             >
-              <ReactCountryFlag
-                svg
-                countryCode={item.countryCode}
-              />
-              &nbsp;
-              <strong>{item.cityName}</strong>
-              &nbsp;
-              <span>{item.country}</span>
+              <div>
+                <ReactCountryFlag
+                  svg
+                  countryCode={item.countryCode}
+                />
+                &nbsp;
+                <strong>{item.cityName}</strong>
+                &nbsp;
+                <span>{item.country}</span>
+              </div>
             </div>
           </Link>
         ))}

@@ -8,11 +8,12 @@ import {
   useMap,
   useMapEvent,
 } from "react-leaflet";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { downCaster } from "../../../Service/Functions";
 import { IBookmarkedHotels } from "../../../Types/IBookmarkedHotels";
 import { IHotelsData } from "../../../Types/IHotelsData";
 import useGetLocation from "../../hooks/useGetLocation";
+import useUrlLocation from "../../hooks/useUrlLocation";
 
 interface IProps {
   markedLocations: IHotelsData[] | IBookmarkedHotels[];
@@ -20,10 +21,9 @@ interface IProps {
 
 const Maps = ({ markedLocations: hotels }: IProps) => {
   const [mapCenter, setMapCenter] = useState<LatLngTuple>([48.56, 2.35]);
-  const [searchParams] = useSearchParams();
+  const [paramsLat, paramsLng] = useUrlLocation();
+
   const { isLoading, position, getLocation } = useGetLocation();
-  const paramsLat = searchParams.get("lat");
-  const paramsLng = searchParams.get("lng");
   useEffect(() => {
     if (paramsLat && paramsLng)
       setMapCenter(downCaster<LatLngTuple>([paramsLat, paramsLng]));
@@ -47,7 +47,7 @@ const Maps = ({ markedLocations: hotels }: IProps) => {
           onClick={getLocation}
           disabled={isLoading}
         >
-          {isLoading ? "Loading ..." : "Use you location"}
+          {isLoading ? "Loading ..." : "Use your location"}
         </button>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -7,7 +7,7 @@ interface IProps {}
 
 const LocationList = ({}: IProps) => {
   const { data, isLoading } = useHttpRequest<IHotelsData[]>(
-    `${env.baseUtl}${Api.hotels}`
+    `${env.baseUrl}${Api.hotels}`
   );
   if (isLoading) return <p>Loading</p>;
 

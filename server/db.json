@@ -1368,6 +1368,60 @@
       "longitude": "67.78003711374224",
       "host_location": "Baba Kot Pakistan",
       "id": 8
+    },
+    {
+      "cityName": "Paris",
+      "country": "France",
+      "countryCode": "fr",
+      "latitude": "48.82268881260476",
+      "longitude": "2.3510742187500004",
+      "host_location": "Paris France",
+      "id": 9
+    },
+    {
+      "cityName": "Municipal Unit of Amfissa",
+      "country": "Greece",
+      "countryCode": "gr",
+      "latitude": "38.492294192361356",
+      "longitude": "22.32421875",
+      "host_location": "Municipal Unit of Amfissa Greece",
+      "id": 10
+    },
+    {
+      "cityName": "Tehran",
+      "country": "Iran",
+      "countryCode": "ir",
+      "latitude": "35.70212583261713",
+      "longitude": "51.37756347656251",
+      "host_location": "Tehran Iran",
+      "id": 11
+    },
+    {
+      "cityName": "London",
+      "country": "United Kingdom",
+      "countryCode": "gb",
+      "latitude": "51.55786291569685",
+      "longitude": "-0.26367187500000006",
+      "host_location": "London United Kingdom",
+      "id": 12
+    },
+    {
+      "cityName": "Tortona",
+      "country": "Italy",
+      "countryCode": "it",
+      "latitude": "44.89683862442751",
+      "longitude": "8.859088631119969",
+      "host_location": "Tortona Italy",
+      "id": 13
+    },
+    {
+      "cityName": "Plymouth",
+      "country": "United Kingdom",
+      "countryCode": "gb",
+      "latitude": "50.37064952035105",
+      "longitude": "-4.097900390625001",
+      "host_location": "Plymouth United Kingdom",
+      "id": 14
     }
   ]
 }

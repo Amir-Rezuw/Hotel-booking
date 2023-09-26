@@ -339,8 +339,9 @@
 
 .formControl .flag {
   position: absolute;
-  right: 1rem;
   top: 50%;
+  right: 3%;
+  transform: translate(50%, 30%);
 }
 
 a.active {

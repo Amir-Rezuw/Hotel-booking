@@ -1,20 +1,19 @@
 import { useEffect } from "react";
 import ReactCountryFlag from "react-country-flag";
 import { useNavigate, useParams } from "react-router-dom";
-import { useBookmarks } from "../Context/BookmarksList.ctx";
-import Loader from "./Shared/Loader";
+import { useBookmarks } from "../../Context/BookmarksList.ctx";
+import Loader from "../Shared/Loader";
 
 interface IProps {}
 
 const SingleBookmark = ({}: IProps) => {
   const { id: bookmarkId } = useParams();
-  const { getBookmarks, isFetchingBookmarks, currentBookmark } = useBookmarks();
+  const { getBookmarks, isLoading, currentBookmark } = useBookmarks();
   const navigate = useNavigate();
   useEffect(() => {
     getBookmarks({ id: bookmarkId ?? "" });
-    return () => {};
   }, [bookmarkId]);
-  if (isFetchingBookmarks || !currentBookmark) return <Loader />;
+  if (isLoading || !currentBookmark) return <Loader />;
   return (
     <div>
       <button

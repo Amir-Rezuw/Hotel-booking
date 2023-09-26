@@ -5,5 +5,5 @@ export interface IBookmarkedHotels {
   latitude: string;
   longitude: string;
   host_location: string;
-  id: number;
+  id?: number;
 }

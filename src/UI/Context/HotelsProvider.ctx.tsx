@@ -26,13 +26,13 @@ const HotelsProviderContext = ({ children }: { children: ReactNode }) => {
   const roomOptions = JSON.parse(searchParams.get("options") ?? "{}");
   const destination = searchParams.get("destination");
   const { data: hotels, isLoading } = useHttpRequest<IHotelsData[]>(
-    `${env.baseUtl}${Api.hotels}`,
+    `${env.baseUrl}${Api.hotels}`,
     `q=${destination || ""}&accommodates_gte=${roomOptions?.room || 1}`
   );
   const getHotel = async (id: string) => {
     setIsCurrentHotelLoading(true);
     try {
-      const { data } = await axios.get(`${env.baseUtl}${Api.hotels}${id}`);
+      const { data } = await axios.get(`${env.baseUrl}${Api.hotels}${id}`);
       setCurrentHotel(data);
       setIsCurrentHotelLoading(false);
     } catch (error) {
