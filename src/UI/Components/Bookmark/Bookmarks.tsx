@@ -15,6 +15,7 @@ const Bookmarks = () => {
     deleteBookmark(id);
   };
   if (isLoading) return <Loader />;
+  if (!bookmarkList.length) return <p>You have not bookmarked any place</p>;
   return (
     <div>
       <div className="bookmarkList">

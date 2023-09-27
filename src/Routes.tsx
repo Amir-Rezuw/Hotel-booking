@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Routes as RRD_Routes, Route } from "react-router-dom";
 
+import AuthForm from "./UI/Components/Auth/Form";
 import AddBookmark from "./UI/Components/Bookmark/Add";
 import Bookmarks from "./UI/Components/Bookmark/Bookmarks";
 import SingleBookmark from "./UI/Components/Bookmark/SingleBookmark";
@@ -48,6 +49,10 @@ const Routes = () => {
             element={<SingleBookmark />}
           />
         </Route>
+        <Route
+          path="/login"
+          element={<AuthForm />}
+        />
       </RRD_Routes>
     </Fragment>
   );

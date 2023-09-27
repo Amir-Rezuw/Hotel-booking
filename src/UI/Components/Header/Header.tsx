@@ -7,12 +7,14 @@ import toast from "react-hot-toast";
 import { HiCalendar, HiSearch } from "react-icons/hi";
 import { MdLocationOn } from "react-icons/md";
 import {
+  Link,
   createSearchParams,
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
 import { toggleState } from "../../../Service/Functions";
 import { Keys } from "../../../env/Enums/Keys";
+import { useAuth } from "../../Context/Auth.ctx";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import IsVisible from "../Shared/IsVisible";
 import GuestOptions from "./GuestOptions";
@@ -37,7 +39,7 @@ const Header = () => {
     },
   ]);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
-
+  const { isAuthenticated, logOut } = useAuth();
   const onOptionChange = (e: MouseEvent) => {
     const name = (e.target as HTMLButtonElement).name.toLocaleLowerCase();
     const operation = (e.target as HTMLButtonElement).innerText;
@@ -78,72 +80,99 @@ const Header = () => {
     <div className="header">
       <div className="headerSearch">
         <div className="headerSearchItem">
-          <MdLocationOn className="headerIcon" />
-          <input
-            value={destination}
-            onChange={(e) =>
-              setDestination((e.target as HTMLInputElement).value)
-            }
-            type="text"
-            placeholder="Where to go?"
-            className="headerSearchInput"
-            id="destination"
-            name="destination"
-          />
-          <span className="separator"></span>
-        </div>
-
-        <div
-          className="headerSearchItem"
-          ref={datePickerRef}
-          id="datePickerParent"
-        >
-          <HiCalendar className="headerIcon dateIcon" />
-          <button onClick={() => toggleState(setIsDatePickerOpen)}>
-            <div className="dateDropDown">{`${format(
-              date[0].startDate ?? new Date(),
-              "MM/dd/yyy"
-            )} to ${format(
-              date[0].startDate ?? new Date(),
-              "MM/dd/yyy"
-            )}`}</div>
-          </button>
-
-          <IsVisible isVisible={isDatePickerOpen}>
-            <DateRange
-              onChange={(item: RangeKeyDict) => {
-                setDate([item[Keys.TravelDateRange]]);
-              }}
-              ranges={date}
-              className="date"
-              minDate={new Date()}
-              moveRangeOnFirstSelection
+          <div>
+            <MdLocationOn className="headerIcon" />
+            <input
+              value={destination}
+              onChange={(e) =>
+                setDestination((e.target as HTMLInputElement).value)
+              }
+              type="text"
+              placeholder="Where to go?"
+              className="headerSearchInput"
+              id="destination"
+              name="destination"
             />
-          </IsVisible>
-          <span className="separator"></span>
-        </div>
-        <div className="headerSearchItem">
-          <button onClick={() => toggleState(setIsGuestOptionsOpen)}>
-            <div id="optionDropDown">
-              {roomOptionsCount.adult} adult &bull; {roomOptionsCount.children}{" "}
-              children &bull; {roomOptionsCount.room} room
-            </div>
-          </button>
-          <GuestOptions
-            isGuestOptionsOpen={isGuestOptionsOpen}
-            onOptionChange={onOptionChange}
-            roomOptionsCount={roomOptionsCount}
-            closerFunction={() => setIsGuestOptionsOpen(false)}
-          />
-          <span className="separator" />
-        </div>
-        <div className="headerSearchItem">
-          <button
-            className="headerSearchBtn"
-            onClick={onSearch}
+            <span className="separator"></span>
+          </div>
+
+          <div
+            className="headerSearchItem"
+            ref={datePickerRef}
+            id="datePickerParent"
           >
-            <HiSearch className="headerIcon" />
-          </button>
+            <HiCalendar className="headerIcon dateIcon" />
+            <button onClick={() => toggleState(setIsDatePickerOpen)}>
+              <div className="dateDropDown">{`${format(
+                date[0].startDate ?? new Date(),
+                "MM/dd/yyy"
+              )} to ${format(
+                date[0].startDate ?? new Date(),
+                "MM/dd/yyy"
+              )}`}</div>
+            </button>
+
+            <IsVisible isVisible={isDatePickerOpen}>
+              <DateRange
+                onChange={(item: RangeKeyDict) => {
+                  setDate([item[Keys.TravelDateRange]]);
+                }}
+                ranges={date}
+                className="date"
+                minDate={new Date()}
+                moveRangeOnFirstSelection
+              />
+            </IsVisible>
+            <span className="separator"></span>
+          </div>
+          <div className="headerSearchItem">
+            <button onClick={() => toggleState(setIsGuestOptionsOpen)}>
+              <div id="optionDropDown">
+                {roomOptionsCount.adult} adult &bull;{" "}
+                {roomOptionsCount.children} children &bull;{" "}
+                {roomOptionsCount.room} room
+              </div>
+            </button>
+            <GuestOptions
+              isGuestOptionsOpen={isGuestOptionsOpen}
+              onOptionChange={onOptionChange}
+              roomOptionsCount={roomOptionsCount}
+              closerFunction={() => setIsGuestOptionsOpen(false)}
+            />
+            <span className="separator" />
+          </div>
+          <div className="headerSearchItem">
+            <button
+              className="headerSearchBtn"
+              onClick={onSearch}
+            >
+              <HiSearch className="headerIcon" />
+            </button>
+          </div>
+        </div>
+        <div>
+          <Link
+            hidden={isAuthenticated}
+            to={"/login"}
+            className="btn btn--primary"
+          >
+            Login
+          </Link>
+          <Link
+            to={"/Login"}
+            className="btn--back btn"
+            hidden={!isAuthenticated}
+            onClick={logOut}
+          >
+            Logout
+          </Link>
+          &nbsp;
+          <Link
+            to="/bookmarks"
+            className="btn--back btn"
+          >
+            Bookmarks
+          </Link>
         </div>
       </div>
     </div>

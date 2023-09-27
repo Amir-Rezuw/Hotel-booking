@@ -1325,49 +1325,31 @@
   ],
   "bookmarks": [
     {
-      "cityName": "Mahidasht",
+      "cityName": "Anarak",
       "country": "Iran (Islamic Republic of)",
       "countryCode": "IR",
-      "latitude": "34.32869425037187",
-      "longitude": "46.724183117022086",
-      "host_location": "Mahidasht Iran (Islamic Republic of)",
+      "latitude": "33.0178760185549",
+      "longitude": "53.96484375000001",
+      "host_location": "Anarak Iran (Islamic Republic of)",
+      "id": 1
+    },
+    {
+      "cityName": "Selcuklu",
+      "country": "Turkiye",
+      "countryCode": "TR",
+      "latitude": "38.02213147353745",
+      "longitude": "32.69531250000001",
+      "host_location": "Selcuklu Turkiye",
+      "id": 2
+    },
+    {
+      "cityName": "Torreiglesias",
+      "country": "Spain",
+      "countryCode": "ES",
+      "latitude": "41.13729606112276",
+      "longitude": "-4.042968750000001",
+      "host_location": "Torreiglesias Spain",
       "id": 4
-    },
-    {
-      "cityName": "Sanandaj",
-      "country": "Iran (Islamic Republic of)",
-      "countryCode": "IR",
-      "latitude": "35.31372444726279",
-      "longitude": "47.03114358752335",
-      "host_location": "Sanandaj Iran (Islamic Republic of)",
-      "id": 5
-    },
-    {
-      "cityName": "Paris",
-      "country": "France",
-      "countryCode": "fr",
-      "latitude": "48.82268881260476",
-      "longitude": "2.3510742187500004",
-      "host_location": "Paris France",
-      "id": 9
-    },
-    {
-      "cityName": "Municipal Unit of Amfissa",
-      "country": "Greece",
-      "countryCode": "gr",
-      "latitude": "38.492294192361356",
-      "longitude": "22.32421875",
-      "host_location": "Municipal Unit of Amfissa Greece",
-      "id": 10
-    },
-    {
-      "cityName": "Plymouth",
-      "country": "United Kingdom",
-      "countryCode": "gb",
-      "latitude": "50.37064952035105",
-      "longitude": "-4.097900390625001",
-      "host_location": "Plymouth United Kingdom",
-      "id": 14
     }
   ]
 }

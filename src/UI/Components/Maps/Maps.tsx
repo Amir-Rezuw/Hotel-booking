@@ -39,7 +39,7 @@ const Maps = ({ markedLocations: hotels }: IProps) => {
       <MapContainer
         className="map"
         center={mapCenter}
-        zoom={13}
+        zoom={0}
         scrollWheelZoom
       >
         <button

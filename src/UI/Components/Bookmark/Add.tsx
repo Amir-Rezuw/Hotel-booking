@@ -27,12 +27,15 @@ const AddBookmark = () => {
       setIsDecodingLatLng(true);
       try {
         const { data, status } = await axios.get<IReversedGeoData>(
-          `${env.GeocodingBaseUrl}?key=${env.__GEOCODING_ACCESS_TOKEN}&lat=${lat}&lon=${lng}&format=json`
+          `${env.GeocodingBaseUrl}?latitude=${lat}&longitude=${lng}`
         );
         if (status === Keys.SuccessStatus) {
-          setCountry(data.address.country);
-          setCityName(data.address.city);
-          setCountryCode(data.address.country_code);
+          setCountry(data.countryName);
+          setCityName(data.city);
+          setCountryCode(data.countryCode);
+        }
+        if (!data.city) {
+          toast.error("There is no city for pinned location.");
         }
       } catch (error: unknown) {
         toast.error((error as AxiosError).message);
@@ -94,7 +97,7 @@ const AddBookmark = () => {
           className="btn btn--back"
           onClick={(e: FormEvent) => {
             e.preventDefault();
-            navigate(-1);
+            navigate("/bookmarks");
           }}
         >
           &larr; Back
